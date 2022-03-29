@@ -20,6 +20,6 @@ spec:
     spec:
       containers:
         - name: app
-          image: 127322177288.dkr.ecr.us-west-1.amazonaws.com/intern/todoapp@sha256:a9e36e47b05ca1ab749e3c414c63e7a8b8b7359eaff65991d49edd087709b47f
+          image: 127322177288.dkr.ecr.us-west-1.amazonaws.com/intern/todoapp@sha256:a9e36e47b05ca1ab749e3c414c63e7a8b8b7359eaff65991d49edd087709b47f:latest
           ports:
             - containerPort: 80
