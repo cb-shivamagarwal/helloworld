@@ -38,8 +38,9 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           RELEASE_IMAGE: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}
         run: |
-          docker build -t ${{ env.RELEASE_IMAGE }} .                                                  
-          echo ${{ github.event.pull_request.number }}
+          docker build -t ${{ env.RELEASE_IMAGE }} .
+          echo "Hey"
+          echo ${{ github.event.push.after }}
           docker push ${{ env.RELEASE_IMAGE }}
       - name: Deploy to Kubernetes cluster
         uses: kodermax/kubectl-aws-eks@master
