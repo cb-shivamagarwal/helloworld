@@ -41,14 +41,6 @@ jobs:
           docker build -t ${{ env.RELEASE_IMAGE }} .                                                  
           
           docker push ${{ env.RELEASE_IMAGE }}
-      - name: Delete App Deployment
-        uses: kodermax/kubectl-aws-eks@master
-        with:
-          args: delete deployment app-deploy
-      - name: Delete App Service
-        uses: kodermax/kubectl-aws-eks@master
-        with:
-          args: delete service app-service
       - name: Deploy to Kubernetes cluster
         uses: kodermax/kubectl-aws-eks@master
         with:

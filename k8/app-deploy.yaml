@@ -21,5 +21,6 @@ spec:
       containers:
         - name: app
           image: 127322177288.dkr.ecr.us-west-1.amazonaws.com/intern/todoapp:latest
+          imagePullPolicy: "Always"
           ports:
             - containerPort: 80
