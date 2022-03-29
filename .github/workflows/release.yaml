@@ -40,7 +40,7 @@ jobs:
         run: |
           docker build -t ${{ env.RELEASE_IMAGE }} .
           echo "Hey"
-          echo ${{ github.event.push.after }}
+          echo "${{ github.event.push.after }}"
           docker push ${{ env.RELEASE_IMAGE }}
       - name: Deploy to Kubernetes cluster
         uses: kodermax/kubectl-aws-eks@master
