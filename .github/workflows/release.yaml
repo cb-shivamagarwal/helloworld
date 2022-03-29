@@ -34,22 +34,22 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-#      - name: Update Deployment Definition file with image tag
-#        uses: swdotcom/update-and-apply-kubernetes-configs@v1
-#        with:
-#          k8-config-file-paths: |
-#            k8/app-deploy.yaml
-#          replacement-method: defined
-#        env:
-#          IMAGE_TAG: ${{ github.sha }}
       - name: Build & Push Image
+        id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           RELEASE_IMAGE: "${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}"
         run: |
-          echo "${{ env.RELEASE_IMAGE }}"
           docker build -t ${{ env.RELEASE_IMAGE }} .
           docker push ${{ env.RELEASE_IMAGE }}
+          echo '::set-output name=IMAGE_URI::${{ env.RELEASE_IMAGE }}'
+      - name: Update Deployment Definition file with Image Tag
+        uses: swdotcom/update-and-apply-kubernetes-configs@v1
+        with:
+          k8-config-file-paths: k8/app-deploy.yaml
+          replacement-method: defined
+        env:
+          ECR_IMAGE_URI: ${{ steps.build-image.outputs.IMAGE_URI }}
       - name: Deploy to Kubernetes cluster
         uses: kodermax/kubectl-aws-eks@master
         with:
