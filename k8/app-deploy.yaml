@@ -20,6 +20,6 @@ spec:
     spec:
       containers:
         - name: app
-          image: ${ECR_IMAGE_URI}
+          image: ECR_IMAGE_URI
           ports:
             - containerPort: 80
