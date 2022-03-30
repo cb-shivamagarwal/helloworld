@@ -27,3 +27,5 @@ spec:
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: "intern_pass"
+            - name: MYSQL_DATABASE
+              value: "intern_db"
